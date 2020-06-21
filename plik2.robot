@@ -4,6 +4,8 @@ Library   SSHLibrary
 Library   Impansible
 Library   Collections
 Library   SeleniumLibrary
+Resource  MojeSlowaKluczowe.robot
+
 
 
 *** Variables ***
@@ -73,10 +75,22 @@ SPRAWDZ CZY DZIALA INTERNET
    wydaj komende ping
    wyloguj sie
 
+WERYFIKACJA ILOSCI PROCESOROW
+   [tags]     proc
+   nawiazanie polaczenia
+   zaloguj sie
+   sprawdz ilosc procesorow
+   wyloguj sie
+
 POBRANIE DANYCH
     pobierz dane
 
+
 *** Keywords ***
+sprawdz ilosc procesorow
+    ${wynik}=    execute command    cat /proc/cpuinfo | grep -c processor
+    should be equal    ${wynik}    2
+
 otworz przegladarke
     #open browser   about:blank   ${przegladarka}
     open browser   ${adres_strony}    ${przegladarka}
